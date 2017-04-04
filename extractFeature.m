@@ -16,4 +16,5 @@ hold on
 scatter(feature1(11:20),feature2(11:20))
 scatter(feature1(21:30),feature2(21:30))
 xlabel('Feature 1'); ylabel('Feature 2'); 
+
 toc
