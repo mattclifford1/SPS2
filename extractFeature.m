@@ -11,6 +11,7 @@ for i = 1:length(gifFiles)
   feature1(i) = getFeature1(fullFileName);
   feature2(i) = getFeature2(fullFileName);
 end
+hold off
 scatter(feature1(1:10),feature2(1:10))
 hold on
 scatter(feature1(11:20),feature2(11:20))

@@ -1,5 +1,5 @@
 function start2(FILE,letter)
-
+addpath(genpath('/Users/mattclifford/Documents/SPS/CourseWork2/characters/trainGIF'))
 % close all
 figure
 F = imread(FILE);  %read in image
