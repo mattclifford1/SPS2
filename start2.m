@@ -4,7 +4,7 @@ tic
 figure
 F = imread(FILE);  %read in image
 % print image on scaled plot
-subplot(2,2,1); imagesc(F); title('original');
+subplot(2,2,1); imagesc(F); title('original'); colorbar;
 
 % fourier transform -------------------------------------------------------
 
@@ -18,7 +18,7 @@ magQ = abs(Q);         % magnitude spectrum
 phaseQ=angle(Q);       % phase spectrum
 
 % show fourier space
-subplot(2,2,2); imagesc(log(abs(Q)+1)); title('fourier space');
+subplot(2,2,2); imagesc(log(abs(Q)+1)); title('fourier space'); colorbar;
 
 % filter ------------------------------------------------------------------
 if letter == 't'
@@ -58,7 +58,7 @@ end
 % inverse fourier ---------------------------------------------------------
 
 % show fourier space after filter
-subplot(2,2,3); imagesc(log(abs(Q)+1)); title('after filter');
+subplot(2,2,3); imagesc(log(abs(Q)+1)); title('after filter'); colorbar;
 
 % work out magnitude and phase to do inverse transform
 magQ = abs(Q);         % magnitude spectrum
@@ -72,6 +72,6 @@ XXX = magQ.*exp(i*phaseQ);
 % do inverse fourier transform
 intrans = ifft2(ifftshift(XXX));
 % show image after filter - have to use magnitude, why????
-subplot(2,2,4); imagesc(abs(intrans)); title('inverse fourier');
+subplot(2,2,4); imagesc(abs(intrans)); title('inverse fourier'); colorbar;
 % subplot(2,2,4); imagesc(abs(w)./angle(w)); title('inverse fourier');
 toc
