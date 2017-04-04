@@ -5,6 +5,7 @@ F = imread(FILE);  %read in image
 Z = fft2(double(F));   
 % shift u=0,v=0 in the centre, **centre at 200, 320**
 Q = fftshift(Z);
+norm = sum(sum((abs(Q)).^2));
 
 center = [0 0];    %u=0,v=0
 I = 20; J =640;     %width/height of box
@@ -17,3 +18,4 @@ I = 35; J =70;     %width/height of box
 Q = antiBoxFilter(Q,center,I,J);
 abQ = (abs(Q)).^2;
 mag = sum(sum(abQ));
+mag = mag/norm;
