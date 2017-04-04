@@ -1,2 +1,10 @@
 function extractFeature
-data1[] = 'GIF.s';
+myFolder = '/Users/mattclifford/Documents/SPS/CourseWork2/characters/trainGIF';
+
+filePattern = fullfile(myFolder, '*.GIF');
+gifFiles = dir(filePattern);
+for i = 1:length(gifFiles)
+  baseFileName = gifFiles(i).name;
+  fullFileName = fullfile(myFolder, baseFileName);
+  feature1
+end
