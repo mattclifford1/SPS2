@@ -2,9 +2,6 @@ function Q = combineFilter2(Q1,Q2)
 
 Q = max(Q1,Q2);
 
-
-
-
 % dim = size(Q1);
 % Q = zeros(dim);
 % for i = 1:dim(1)
