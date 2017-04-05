@@ -11,8 +11,6 @@ for i = 1:dim(1)
     for j = 1:dim(2)
         if i >= minI && i <= maxI && j >= minJ && j <= maxJ
             Q(i,j) = 0;
-        else
-            Q(i,j) = Q(i,j);
         end
     end
 end

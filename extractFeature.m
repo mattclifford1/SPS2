@@ -7,10 +7,17 @@ feature1 = zeros(length(gifFiles),1);
 feature2 = zeros(length(gifFiles),1);
 feature3 = zeros(length(gifFiles),1);
 for i = 1:length(gifFiles)
+  fprintf('\n%d: \n',i)
   baseFileName = gifFiles(i).name;
   fullFileName = fullfile(myFolder, baseFileName);
+  fprintf('doing feature 1: ')
+  tic
   feature1(i) = getFeature1(fullFileName);
+  toc
+  fprintf('doing feature 2: ')
+  tic
   feature2(i) = getFeature2(fullFileName);
+  toc
 %   feature3(i) = getFeature3(fullFileName);
 end
 hold off
