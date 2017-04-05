@@ -15,13 +15,6 @@ for i = 1:length(gifFiles)
 end
 hold off
 feature = 2;
-if feature == 2
-    scatter(feature1(1:10),feature2(1:10))
-    hold on
-    scatter(feature1(11:20),feature2(11:20))
-    scatter(feature1(21:30),feature2(21:30))
-    xlabel('Feature 1'); ylabel('Feature 2');
-end
 if feature == 3
     scatter3(feature1(1:10),feature2(1:10),feature3(1:10))
     hold on

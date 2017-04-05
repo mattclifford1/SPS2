@@ -1,0 +1,10 @@
+function rescaled = prepImage(testImage)
+
+addpath(genpath('/Users/mattclifford/Documents/SPS/CourseWork2/characters/testData'))
+
+I = imread(testImage);
+G = (I(:,:,1)+I(:,:,2)+I(:,:,3))/3;
+imshow(G)
+BW = imbinarize(G);
+rescaled = imresize(BW,[640 400]);
+
