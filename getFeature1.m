@@ -31,3 +31,4 @@ imagesc(log(abs(Q)+1));colorbar;
 if ischar(FILE) == 0
     figure(1);subplot(2,2,3); imagesc(log(abs(Q)+1)); title('after filter 1'); colorbar;
 end
+imagesc(log(abs(Q)+1))

@@ -1,6 +1,6 @@
 tic
- myFolder = '/Users/mattclifford/Documents/SPS/CourseWork2/characters/trainGIF';
-% myFolder = '/home/fe15/jc15311/linux/Documents/MATLAB/CW2/SPS2/trainGIF';
+% myFolder = '/Users/mattclifford/Documents/SPS/CourseWork2/characters/trainGIF';
+ myFolder = '/home/fe15/jc15311/linux/Documents/MATLAB/CW2/SPS2/trainGIF';
 timeElapsed = 0;
 filePattern = fullfile(myFolder, '*.GIF');
 gifFiles = dir(filePattern);
@@ -39,6 +39,13 @@ if feature == 3
     scatter3(feature1(21:30),feature2(21:30),feature3(21:30))
     xlabel('Feature 1'); ylabel('Feature 2'); zlabel('Feature 3')
 end
+Class1 = [feature1(1:10),feature2(1:10)];
+Class2 = [feature1(11:20),feature2(11:20)];
+Class3 = [feature1(21:30),feature2(21:30)];
+Mean1 = mean(Class1)
+Sum1 = sum(abs( [(Class1(:,1)-Mean1(1)),(Class1(:,2)-Mean1(2))]) )
+Sum1R = round(Sum1)
+
 legend('S','T','V')
 toc
 timeElapsed

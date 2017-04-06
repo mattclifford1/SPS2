@@ -17,4 +17,4 @@ for i = 1:dim(1)
         end
     end
 end
-% imagesc(log(abs(Q1)+1));
+imagesc(log(abs(Q1)+1));
