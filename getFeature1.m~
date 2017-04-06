@@ -14,7 +14,7 @@ maxQ = max(max(Q));
 if ischar(FILE) == 0
     figure(1);subplot(2,2,2); imagesc(log(abs(Q)+1)); title('fourier space'); colorbar;
 end
-lower = 55; upper = 75;
+lower = 50; upper = 75;
 center = [0 0];    %u=0,v=0
 theta1 = lower*(pi/180); theta2 = upper*(pi/180);
 theta1_2 = -upper*(pi/180); theta2_2 = -lower*(pi/180);

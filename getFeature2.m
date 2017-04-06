@@ -18,7 +18,7 @@ I = 20; J =640;     %width/height of box
 % Q2 = boxFilter(Q,center,I2,J2);
 theta1 = -10*(pi/180); theta2 = 10*(pi/180);
 % theta1_2 = -upper*(pi/180); theta2_2 = -lower*(pi/180);
-Q = sectorFilter3(Q,center,theta1,theta2,1000,40);
+Q = sectorFilter3(Q,center,theta1,theta2,200,40);
 % fprintf('filter1 done\n')
 % Q2 = boxFilter(Q,center,I,J);
 % fprintf('filter2 done\n')
