@@ -13,11 +13,8 @@ maxQ = max(max(Q));
 % imagesc(log(abs(Q)+1))
 
 center = [0 0];    %u=0,v=0
-I = 20; J =640;     %width/height of box
-
 theta1 = -10*(pi/180); theta2 = 10*(pi/180);
-
-Q = sectorFilter3(Q,center,theta1,theta2,200,40);
+Q = sectorFilter3(Q,center,theta1,theta2,400,20);
 
 abQ = (abs(Q)).^2;
 mag = sum(sum(abQ));

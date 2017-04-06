@@ -14,7 +14,8 @@ for i = 1:dim(1)
         if atan(v/u) >= theta1 && atan(v/u) <= theta2 && u^2 + v^2 <= r^2 ...
             || atan(v/u) >= -theta2 && atan(v/u) <= -theta1 && u^2 + v^2 <= r^2
             Q1(i,j) = Q(i,j);
+%             Q(i,j) = 0;
         end
     end
 end
-imagesc(log(abs(Q1)+1));
+% imagesc(log(abs(Q1)+1));
