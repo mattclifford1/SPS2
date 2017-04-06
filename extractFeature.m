@@ -1,6 +1,7 @@
 tic
-myFolder = '/Users/mattclifford/Documents/SPS/CourseWork2/characters/trainGIF';
-
+% myFolder = '/Users/mattclifford/Documents/SPS/CourseWork2/characters/trainGIF';
+myFolder = '/home/fe15/jc15311/linux/Documents/MATLAB/CW2/SPS2/trainGIF';
+timeElapsed = 0;
 filePattern = fullfile(myFolder, '*.GIF');
 gifFiles = dir(filePattern);
 feature1 = zeros(length(gifFiles),1);
@@ -14,10 +15,12 @@ for i = 1:length(gifFiles)
   tic
   feature1(i) = getFeature1(fullFileName);
   toc
+  timeElapsed = toc + timeElapsed;
   fprintf('doing feature 2: ')
   tic
   feature2(i) = getFeature2(fullFileName);
   toc
+  timeElapsed = toc + timeElapsed;
 %   feature3(i) = getFeature3(fullFileName);
 end
 hold off
@@ -38,3 +41,4 @@ if feature == 3
 end
 legend('S','T','V')
 toc
+timeElapsed

@@ -1,4 +1,5 @@
-addpath(genpath('/Users/mattclifford/Documents/SPS/CourseWork2/characters/trainGIF'))
+%addpath(genpath('/Users/mattclifford/Documents/SPS/CourseWork2/characters/trainGIF'))
+addpath(genpath('/home/fe15/jc15311/linux/Documents/MATLAB/CW2/SPS2/trainGIF'));
 F = imread('T1.GIF');
 Z = fft2(double(F));   
 % shift u=0,v=0 in the centre, **centre at 200, 320**
