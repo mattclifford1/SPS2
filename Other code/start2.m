@@ -1,5 +1,5 @@
 function start2(FILE,letter)
-tic
+addpath(genpath('/Users/mattclifford/Documents/SPS/CourseWork2/characters/trainGIF'))
 % close all
 figure
 F = imread(FILE);  %read in image
@@ -74,4 +74,3 @@ intrans = ifft2(ifftshift(XXX));
 % show image after filter - have to use magnitude, why????
 subplot(2,2,4); imagesc(abs(intrans)); title('inverse fourier'); colorbar;
 % subplot(2,2,4); imagesc(abs(w)./angle(w)); title('inverse fourier');
-toc
