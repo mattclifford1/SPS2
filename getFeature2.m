@@ -10,7 +10,7 @@ Z = fft2(double(F));
 % shift u=0,v=0 in the centre, **centre at 200, 320**
 Q = fftshift(Z);
 maxQ = max(max(Q));
-
+% imagesc(log(abs(Q)+1))
 center = [0 0];    %u=0,v=0
 I = 20; J =640;     %width/height of box
 %I2 = 400; J2 =20;     %width/height of box
@@ -33,7 +33,8 @@ I = 50; J =70;     %width/height of box
 abQ = (abs(Q)).^2;
 mag = sum(sum(abQ));
 mag = mag/maxQ;
-imagesc(log(abs(Q)+1));
+
+% imagesc(log(abs(Q)+1));
 if ischar(FILE) == 0
     figure(1);subplot(2,2,4); imagesc(log(abs(Q)+1)); title('after filter 1'); colorbar;
 end
