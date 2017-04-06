@@ -18,12 +18,12 @@ I = 20; J =640;     %width/height of box
 % Q2 = boxFilter(Q,center,I2,J2);
 theta1 = -10*(pi/180); theta2 = 10*(pi/180);
 % theta1_2 = -upper*(pi/180); theta2_2 = -lower*(pi/180);
-Q1 = sectorFilter(Q,center,theta1,theta2,1000);
+Q = sectorFilter3(Q,center,theta1,theta2,1000);
 % fprintf('filter1 done\n')
 % Q2 = boxFilter(Q,center,I,J);
 % fprintf('filter2 done\n')
-Q2 = (sectorFilter(Q,center,-pi/2,-85*(pi/180),1000) + sectorFilter(Q,center,85*(pi/180),pi/2,1000));
-Q = max(Q1,Q2);
+% Q2 = (sectorFilter(Q,center,-pi/2,-85*(pi/180),1000) + sectorFilter(Q,center,85*(pi/180),pi/2,1000));
+% Q = max(Q1,Q2);
 % Q = combineFilter2(Q1,Q2);
 I = 50; J =70;     %width/height of box
 % Q = antiBoxFilter(Q,center,I,J);

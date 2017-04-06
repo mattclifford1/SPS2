@@ -1,4 +1,4 @@
-function Q1 = sectorFilter(Q,center,theta1,theta2,r)
+function Q1 = sectorFilter3(Q,center,theta1,theta2,r)
 % sector filer applied to matrix Q
 % theta1 is starting angle of filter
 % theta2 is ending anlge of filter
@@ -11,10 +11,11 @@ Q1 = zeros(dim);
 for i = 1:dim(1)
     for j = 1:dim(2)
         u = i - center(1); v = j - center(2);
-        if atan(v/u) >= theta1 && atan(v/u) <= theta2 && u^2 + v^2 <= r^2
+        if (atan(v/u) >= theta1 && atan(v/u) <= theta2 && u^2 + v^2 <= r^2) ...
+            || ((atan(v/u) >= ((theta1+pi/2) && atan(v/u) <= (theta2+pi/2) && u^2 + v^2 <= r^2))) ...
+            || (atan(v/u) >= (theta1-pi/2) && atan(v/u) <= (theta2-pi/2) && u^2 + v^2 <= r^2)
             Q1(i,j) = Q(i,j);
         end
     end
 end
-figure
-% imagesc(log(abs(Q1)+1));toc
+% imagesc(log(abs(Q1)+1));
