@@ -18,7 +18,7 @@ I = 20; J =640;     %width/height of box
 % Q2 = boxFilter(Q,center,I2,J2);
 theta1 = -10*(pi/180); theta2 = 10*(pi/180);
 % theta1_2 = -upper*(pi/180); theta2_2 = -lower*(pi/180);
-Q = sectorFilter3(Q,center,theta1,theta2,1000);
+Q = sectorFilter3(Q,center,theta1,theta2,1000,40);
 % fprintf('filter1 done\n')
 % Q2 = boxFilter(Q,center,I,J);
 % fprintf('filter2 done\n')
@@ -28,7 +28,7 @@ Q = sectorFilter3(Q,center,theta1,theta2,1000);
 I = 50; J =70;     %width/height of box
 % Q = antiBoxFilter(Q,center,I,J);
 % % Q = ringFilter(Q,center,50,1000);
-Q = holeFilter(Q,center,40);
+% Q = holeFilter(Q,center,40);
 % fprintf('filter3 done\n')
 abQ = (abs(Q)).^2;
 mag = sum(sum(abQ));
