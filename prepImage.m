@@ -3,6 +3,7 @@ function rescaledG = prepImage(testImage)
 addpath(genpath('/Users/mattclifford/Documents/SPS/CourseWork2/characters/testData'))
 
 I = imread(testImage);
+
 G = rgb2gray(I);
 rescaledG = imresize(G,[640 400]);
 % BW = imbinarize(G);
