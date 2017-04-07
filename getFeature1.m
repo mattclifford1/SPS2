@@ -11,7 +11,7 @@ Z = fft2(double(F));
 % shift u=0,v=0 in the centre, **centre at 200, 320**
 Q = fftshift(Z);
 maxQ = max(max(Q));
-% imagesc(log(abs(Q)+1));figure
+% imagesc(log(abs(Q)+1)); figuref
 
 if ischar(FILE) == 0
     figure(1);subplot(2,2,2); imagesc(log(abs(Q)+1)); title('fourier space'); colorbar;
