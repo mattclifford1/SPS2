@@ -1,6 +1,6 @@
 function rescaledG = prepImage(testImage)
 
-addpath(genpath('/Users/mattclifford/Documents/SPS/CourseWork2/characters/testData'))
+addpath(genpath(strcat(pwd,'/testData')));
 
 I = imread(testImage);
 
@@ -17,4 +17,4 @@ for i = 1:dim(1)
         end
     end
 end
-figure(1);subplot(2,2,1); imagesc(rescaledG);
+% figure(1);subplot(2,2,1); imagesc(rescaledG);

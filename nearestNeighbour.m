@@ -1,11 +1,11 @@
-function nearestNeighbour(feature1,feature2,testImage)
+function nearestNeighbour(feature1,feature2)
 close all
 train = [feature1,feature2];
 S = [feature1(1:10),feature2(1:10)];
 T = [feature1(11:20),feature2(11:20)];
 V = [feature1(21:30),feature2(21:30)];
 
-addpath(genpath('/Users/mattclifford/Documents/SPS/CourseWork2/characters/testData'))
+addpath(genpath(strcat(pwd,'/testData')));
 % testImage = prepImage(testImage);
 % test = [getFeature1(testImage),getFeature2(testImage)];
 % dists = pdist2(train,test);
@@ -21,9 +21,9 @@ addpath(genpath('/Users/mattclifford/Documents/SPS/CourseWork2/characters/testDa
 % %     title('letter is a V')
 % end
 
-myFolder = '/Users/mattclifford/Documents/SPS/CourseWork2/characters/testData';
-filePattern = fullfile(myFolder, '*.png');
-pngFiles = dir(filePattern)
+myFolder = strcat(pwd,'/testData');
+fileGeneral = fullfile(myFolder, '*.png');
+pngFiles = dir(fileGeneral)
 test = [];
 for i = 1:length(pngFiles)
     fprintf('\n%d: \n',i)

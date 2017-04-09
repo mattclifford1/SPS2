@@ -1,5 +1,5 @@
 function mag = getFeature2(FILE)
-addpath(genpath('/Users/mattclifford/Documents/SPS/CourseWork2/characters/trainGIF'))
+addpath(genpath(strcat(pwd,'/trainGIF')));
 if ischar(FILE) == 1
     F = imread(FILE);  %read in image
 else
@@ -23,5 +23,5 @@ mag = mag/maxQ;
 
 % imagesc(log(abs(Q)+1));
 if ischar(FILE) == 0
-    figure(1);subplot(2,2,4); imagesc(log(abs(Q)+1)); title('after filter 1'); colorbar;
+%     figure(1);subplot(2,2,4); imagesc(log(abs(Q)+1)); title('after filter 1'); colorbar;
 end

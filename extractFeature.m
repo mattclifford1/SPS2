@@ -1,6 +1,6 @@
 tic
 
-myFolder = '/Users/mattclifford/Documents/SPS/CourseWork2/characters/trainGIF';
+myFolder = strcat(pwd,'/trainGIF');;
 
 % myFolder = '/Users/mattclifford/Documents/SPS/CourseWork2/characters/trainGIF';
 % myFolder = '/home/fe15/jc15311/linux/Documents/MATLAB/CW2/SPS2/trainGIF';
