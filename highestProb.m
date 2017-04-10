@@ -1,6 +1,6 @@
 function [probs,group] = highestProb(test,PROBSS,PROBST,PROBSV,X,Y)
-X = round(X/100)*100; Y = round(Y/100)*100; test  = round(test/100)*100;
-test
+deci = 100;
+X = round(X*deci)/deci; Y = round(Y*deci)/deci; test  = round(test*deci)/deci;
 x = find(X(1,:)==test(1));
 x = round(mean(x));
 y = find(Y(:,1)==test(2));

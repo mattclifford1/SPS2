@@ -19,7 +19,7 @@ Q = sectorFilter3(Q,center,theta1,theta2,400,20);
 abQ = (abs(Q)).^2;
 mag = sum(sum(abQ));
 
-mag = mag/maxQ;
+% mag = mag/maxQ;
 
 % imagesc(log(abs(Q)+1));
 if ischar(FILE) == 0

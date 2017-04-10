@@ -15,7 +15,7 @@ C = [muS; muT; muV];
 
 %calculating 3d normal distribution using means and variances
 %found, meshgrid used to get good/even plotting resolution
-error = 0.5;
+error = 50000000000;
 res=1000;
 scale1=[(linspace((min(feature1)),(max(feature1)+error),res))]'; 
 scale2=[(linspace((min(feature2)),(max(feature2)+error),res))]';
@@ -64,17 +64,17 @@ for i = 1:length(bound1)
 end
 
 % TEST DATA ---------------------------------------------------------------
-global max1; global max2;
+
 myFolder = strcat(pwd,'/testData/Test');;
 fileGeneralS = fullfile(myFolder, 'S*.png');
 pngFilesS = dir(fileGeneralS);
-testS = []; 
+testS = [];
 for i = 1:length(pngFilesS)
     fprintf('\n%d: \n',i)
     baseFileNameS = pngFilesS(i).name;
     fullFileNameS = fullfile(myFolder, baseFileNameS);
     testImage = prepImage(fullFileNameS);
-    testS = [testS; (getFeature1(testImage)/max1),(getFeature2(testImage)/max2)]; 
+    testS = [testS; getFeature1(testImage),getFeature2(testImage)]; 
     [probsS,groupS(i)] = highestProb(testS(i,:),PROBSS,PROBST,PROBSV,X,Y);
 end
 
@@ -86,8 +86,8 @@ for i = 1:length(pngFilesT)
     baseFileNameT = pngFilesT(i).name;
     fullFileNameT = fullfile(myFolder, baseFileNameT);
     testImage = prepImage(fullFileNameT);
-    testT = [testT; (getFeature1(testImage)/max1),(getFeature2(testImage)/max2)];
-    [probsT,groupT(i)] = highestProb(testT(i,:),PROBSS,PROBST,PROBSV,X,Y);
+    testT = [testT; getFeature1(testImage),getFeature2(testImage)];
+    [probsT,groupT(i)] = highestProb(testT(i,:),PROBSS,PROBST,PROBSV,X,Y)
 end
 
 fileGeneralV = fullfile(myFolder, 'V*.png');
@@ -98,7 +98,7 @@ for i = 1:length(pngFilesV)
     baseFileNameV = pngFilesV(i).name;
     fullFileNameV = fullfile(myFolder, baseFileNameV);
     testImage = prepImage(fullFileNameV);
-    testV = [testV; (getFeature1(testImage)/max1),(getFeature2(testImage)/max2)];
+    testV = [testV; getFeature1(testImage),getFeature2(testImage)];
     [probsV,groupV(i)] = highestProb(testV(i,:),PROBSS,PROBST,PROBSV,X,Y);
 end
 

@@ -5,7 +5,7 @@ addpath(genpath(strcat(pwd,'/testData')));
 I = imread(testImage);
 
 G = rgb2gray(I);
-rescaledG = imresize(G,[640 400]);
+rescaledG = imresize(G,[400 640]);
 % BW = imbinarize(G);
 dim = size(rescaledG);
 for i = 1:dim(1)
