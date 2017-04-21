@@ -79,6 +79,7 @@ for i = 1:length(pngFilesV)
         fprintf('Pass')
     else
         fprintf('Fail')
+        dists
         failV = failV + 1;
     end
 end

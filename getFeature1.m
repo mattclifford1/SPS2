@@ -1,6 +1,6 @@
-function mag = getFeature1(FILE)
+function count = getFeature1(FILE)
 addpath(genpath(strcat(pwd,'/trainGIF')));
-addpath(genpath(strcat(pwd,'/testData')));
+% addpath(genpath(strcat(pwd,'/testData/Test2')));
 if ischar(FILE) == 1
     F = imread(FILE);  %read in image
 else
@@ -11,23 +11,37 @@ Z = fft2(double(F));
 % shift u=0,v=0 in the centre, **centre at 200, 320**
 Q = fftshift(Z);
 maxQ = max(max(Q));
-% imagesc(log(abs(Q)+1)); figure
+%  subplot(2,1,1);   imagesc(log(abs(Q)+1)); colorbar ;
 
 if ischar(FILE) == 0
-%     figure(1);subplot(2,2,2); imagesc(log(abs(Q)+1)); title('fourier space'); colorbar;
+%      figure(1);subplot(2,2,2); imagesc(log(abs(Q)+1)); title('fourier space'); colorbar;
 end
 lower = 60; upper = 80;
 center = [0 0];    %u=0,v=0
 theta1 = lower*(pi/180); theta2 = upper*(pi/180);
-Q = sectorFilter2(Q,center,theta1,theta2,400);
+% Q = sectorFilter2(Q,center,theta1,theta2,400);
+r1a = 10; r1b = 8/5*r1a;
+r2a = 12; r2b = 8/5*r2a;
+[a,Q] = ringFilter(Q,center,r1a,r1b,r2a,r2b);
 
+a = abs(a).^2; m =mean(a);
 abQ = (abs(Q)).^2;
 mag = sum(sum(abQ));
+v = var(a);
+b = abs(m - a); count = 0;
+for i = 1:length(a)
+    for j = 12:-1:4
+        if b(i) < m/j
+            count = count + (1);
+        end
+    end
+end
 
+% mag = var(a);
 % mag = mag/maxQ;
 % imagesc(log(abs(Q)+1));colorbar;
 if ischar(FILE) == 0
 %     figure(1);subplot(2,2,3); imagesc(log(abs(Q)+1)); title('after filter 1'); colorbar;
 end
 % figure
-% imagesc(log(abs(Q)+1));colorbar;
+%  subplot(2,1,2);imagesc(log(abs(Q)+1));colorbar;

@@ -65,7 +65,8 @@ end
 
 % TEST DATA ---------------------------------------------------------------
 global max1; global max2;
-myFolder = strcat(pwd,'/testData/Test');;
+myFolder = strcat(pwd,'/testData/Test2');
+
 fileGeneralS = fullfile(myFolder, 'S*.png');
 pngFilesS = dir(fileGeneralS);
 testS = []; 

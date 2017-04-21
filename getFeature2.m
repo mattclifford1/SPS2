@@ -13,14 +13,14 @@ maxQ = max(max(Q));
 % imagesc(log(abs(Q)+1))
 
 center = [0 0];    %u=0,v=0
-theta1 = -10*(pi/180); theta2 = 10*(pi/180);
-Q = sectorFilter3(Q,center,theta1,theta2,400,20);
+theta1 = -6*(pi/180); theta2 = 6*(pi/180);
+Q = sectorFilter3(Q,center,theta1,theta2,400,53);
 
 abQ = (abs(Q)).^2;
 mag = sum(sum(abQ));
 
 % mag = mag/maxQ;
-
+% figure
 % imagesc(log(abs(Q)+1));
 if ischar(FILE) == 0
 %     figure(1);subplot(2,2,4); imagesc(log(abs(Q)+1)); title('after filter 1'); colorbar;

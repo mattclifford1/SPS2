@@ -1,6 +1,6 @@
 function rescaledG = prepImage(testImage)
 
-addpath(genpath(strcat(pwd,'/testData')));
+addpath(genpath(strcat(pwd,'/testData/Test2')));
 
 I = imread(testImage);
 
