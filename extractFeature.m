@@ -27,7 +27,7 @@ for i = 1:length(gifFiles)
 %   feature3(i) = getFeature3(fullFileName);
 end
 global max1; global max2; 
-max1 = max(feature1); max2 = max(feature2);
+max1 = max(feature1)/100; max2 = max(feature2)/100;
 feature1 = feature1/max1;
 feature2 = feature2/max2;
 

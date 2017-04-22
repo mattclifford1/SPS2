@@ -5,23 +5,10 @@ trainS = [feature1(1:10),feature2(1:10)];
 trainT = [feature1(11:20),feature2(11:20)];
 trainV = [feature1(21:30),feature2(21:30)];
 
-addpath(genpath(strcat(pwd,'/testData')));
-% testImage = prepImage(testImage);
-% test = [getFeature1(testImage),getFeature2(testImage)];
-% dists = pdist2(train,test);
-% [dist,ind] = min(dists);
-% if ind > 0 && ind < 11
-%     fprintf('letter is an S\n')
-% %     title('letter is an S')
-% elseif ind > 10 && ind < 21
-%     fprintf('letter is a T\n')
-% %     title('letter is a T')
-% else
-%     fprintf('letter is a V\n')
-% %     title('letter is a V')
-% end
+% addpath(genpath(strcat(pwd,'/testData')));
 
-failS = 0; failT = 0; failV = 0;
+passS = 0; passT = 0; passV = 0;
+fail = [];
 % TEST DATA ---------------------------------------------------------------
 global max1; global max2;
 myFolder = strcat(pwd,'/testData/Test2');
@@ -39,9 +26,10 @@ for i = 1:length(pngFilesS)
     [dist,ind] = min(dists);
     if ind > 0 && ind < 11
         fprintf('Pass')
+        passS = passS + 1;
     else
         fprintf('Fail')
-        failS = failS + 1;
+        fail = [fail; testS(i,:)];
     end
 end
 
@@ -58,9 +46,10 @@ for i = 1:length(pngFilesT)
     [dist,ind] = min(dists);
     if ind > 10 && ind < 21
         fprintf('Pass')
+        passT = passT + 1;
     else
         fprintf('Fail')
-        failT = failT + 1;
+        fail = [fail; testT(i,:)];
     end
 end
 
@@ -77,16 +66,17 @@ for i = 1:length(pngFilesV)
     [dist,ind] = min(dists);
     if ind > 20 && ind < 31
         fprintf('Pass')
+        passV = passV + 1;
     else
         fprintf('Fail')
-        failV = failV + 1;
+        fail = [fail; testV(i,:)];
     end
 end
 totalS = length(testS); totalT = length(testT); totalV = length(testV);
 
-fprintf('\nS fail rate: %d out of %d\n',failS,totalS)
-fprintf('\nT fail rate: %d out of %d\n',failT,totalT)
-fprintf('\nV fail rate: %d out of %d\n',failV,totalV)
+fprintf('\nS pass rate: %d out of %d\n',passS,totalS)
+fprintf('\nT pass rate: %d out of %d\n',passT,totalT)
+fprintf('\nV pass rate: %d out of %d\n',passV,totalV)
 %PLOTTING -----------------------------------------------------------------
 figure
 plot(feature1(1:10),feature2(1:10),'.','MarkerSize',10)
@@ -97,7 +87,8 @@ xlabel('Feature 1'); ylabel('Feature 2');
 plot(testS(:,1),testS(:,2),'x','LineWidth',2)
 plot(testT(:,1),testT(:,2),'x','LineWidth',2)
 plot(testV(:,1),testV(:,2),'x','LineWidth',2)
-legend('S','T','V','testS','testT','testV')
+plot(fail(:,1),fail(:,2),'o','MarkerSize',20)
+legend('S','T','V','testS','testT','testV','failed')
 
 
 

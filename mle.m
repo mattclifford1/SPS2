@@ -1,6 +1,6 @@
 % function mle(feature1,feature2)
 close all
-addpath(genpath(strcat(pwd,'/testData')));
+% addpath(genpath(strcat(pwd,'/testData')));
 
 train = [feature1,feature2];
 classS = [feature1(1:10),feature2(1:10)];
@@ -15,7 +15,7 @@ C = [muS; muT; muV];
 
 %calculating 3d normal distribution using means and variances
 %found, meshgrid used to get good/even plotting resolution
-error = 0.5;
+error = 25;
 res=1000;
 scale1=[(linspace((min(feature1)),(max(feature1)+error),res))]'; 
 scale2=[(linspace((min(feature2)),(max(feature2)+error),res))]';
@@ -63,6 +63,9 @@ for i = 1:length(bound1)
     end
 end
 
+
+passS = 0; passT = 0; passV = 0;
+fail = [];
 % TEST DATA ---------------------------------------------------------------
 global max1; global max2;
 myFolder = strcat(pwd,'/testData/Test2');
@@ -71,37 +74,65 @@ fileGeneralS = fullfile(myFolder, 'S*.png');
 pngFilesS = dir(fileGeneralS);
 testS = []; 
 for i = 1:length(pngFilesS)
-    fprintf('\n%d: \n',i)
+    fprintf('\nS%d: ',i)
     baseFileNameS = pngFilesS(i).name;
     fullFileNameS = fullfile(myFolder, baseFileNameS);
     testImage = prepImage(fullFileNameS);
     testS = [testS; (getFeature1(testImage)/max1),(getFeature2(testImage)/max2)]; 
     [probsS,groupS(i)] = highestProb(testS(i,:),PROBSS,PROBST,PROBSV,X,Y);
+    if groupS(i) == 1
+        fprintf('Pass')
+        passS = passS + 1;
+    else
+        fprintf('Fail')
+        fail = [fail; testS(i,:)];
+    end
+    fprintf('%d S %d T %d V',probsS(1),probsS(2),probsS(3))
 end
 
 fileGeneralT = fullfile(myFolder, 'T*.png');
 pngFilesT = dir(fileGeneralT);
 testT = [];
 for i = 1:length(pngFilesT)
-    fprintf('\n%d: \n',i)
+    fprintf('\nT%d: ',i)
     baseFileNameT = pngFilesT(i).name;
     fullFileNameT = fullfile(myFolder, baseFileNameT);
     testImage = prepImage(fullFileNameT);
     testT = [testT; (getFeature1(testImage)/max1),(getFeature2(testImage)/max2)];
     [probsT,groupT(i)] = highestProb(testT(i,:),PROBSS,PROBST,PROBSV,X,Y);
+    if groupT(i) == 2
+        fprintf('Pass')
+        passT = passT + 1;
+    else
+        fprintf('Fail')
+        fail = [fail; testT(i,:)];
+    end
 end
 
 fileGeneralV = fullfile(myFolder, 'V*.png');
 pngFilesV = dir(fileGeneralV);
 testV = [];
 for i = 1:length(pngFilesV)
-    fprintf('\n%d: \n',i)
+    fprintf('\nV%d: ',i)
     baseFileNameV = pngFilesV(i).name;
     fullFileNameV = fullfile(myFolder, baseFileNameV);
     testImage = prepImage(fullFileNameV);
     testV = [testV; (getFeature1(testImage)/max1),(getFeature2(testImage)/max2)];
     [probsV,groupV(i)] = highestProb(testV(i,:),PROBSS,PROBST,PROBSV,X,Y);
+    if groupV(i) == 3
+        fprintf('Pass')
+        passV = passV + 1;
+    else
+        fprintf('Fail')
+        fail = [fail; testV(i,:)];
+    end
 end
+
+totalS = length(testS); totalT = length(testT); totalV = length(testV);
+
+fprintf('\nS pass rate: %d out of %d\n',passS,totalS)
+fprintf('\nT pass rate: %d out of %d\n',passT,totalT)
+fprintf('\nV pass rate: %d out of %d\n',passV,totalV)
 
 %PLOTTING -----------------------------------------------------------------
 hold off
@@ -114,10 +145,19 @@ if graphtype == 2
     plot(classT(:,1),classT(:,2),'r.','MarkerSize',sise);
     plot(classV(:,1),classV(:,2),'b.','MarkerSize',sise);
     plot(C(:,1),C(:,2),'kx','MarkerSize',10,'LineWidth',2)
-    scatter(testS(:,1),testS(:,2),'k*');
-    scatter(testT(:,1),testT(:,2),'r*');
-    scatter(testV(:,1),testV(:,2),'b*');  
-    legend('S','T','V','Means','s','t','v')
+    if isempty(testS) == 0
+        scatter(testS(:,1),testS(:,2),'k*');
+    end
+    if isempty(testT) == 0
+        scatter(testT(:,1),testT(:,2),'r*');
+    end
+    if isempty(testV) == 0
+        scatter(testV(:,1),testV(:,2),'b*');
+    end
+    if isempty(fail) == 0
+        plot(fail(:,1),fail(:,2),'o','MarkerSize',20)
+    end
+    legend('S','T','V','Means','s','t','v','fail')
     contour(scale1,scale2,PROBSS,[densityS densityS],'color','g')
     contour(X,Y,PROBST,[densityT densityT],'color','g')
     contour(X,Y,PROBSV,[densityV densityV],'color','g')
