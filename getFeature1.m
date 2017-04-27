@@ -11,7 +11,16 @@ Z = fft2(double(F));
 % shift u=0,v=0 in the centre, **centre at 200, 320**
 Q = fftshift(Z);
 maxQ = max(max(Q));
-%  subplot(2,1,1);   imagesc(log(abs(Q)+1)); colorbar ;
+%  subplot(2,1,1); 
+
+scale2=[(linspace(0,400,400))]'; 
+scale1=[(linspace(0,640,640))]';
+
+%2d resolution matrix
+[X Y] = meshgrid(scale1,scale2);
+
+% imagesc(log(abs(Q)+1)); colorbar ;
+% figure; surf(X,Y,log(abs(Q)+1))
 
 if ischar(FILE) == 0
 %      figure(1);subplot(2,2,2); imagesc(log(abs(Q)+1)); title('fourier space'); colorbar;
@@ -44,4 +53,5 @@ if ischar(FILE) == 0
 %     figure(1);subplot(2,2,3); imagesc(log(abs(Q)+1)); title('after filter 1'); colorbar;
 end
 % figure
-%  subplot(2,1,2);imagesc(log(abs(Q)+1));colorbar;
+%  subplot(2,1,2);
+%imagesc(log(abs(Q)+1));colorbar;
