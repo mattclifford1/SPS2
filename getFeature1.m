@@ -31,10 +31,10 @@ theta1 = lower*(pi/180); theta2 = upper*(pi/180);
 % Q = sectorFilter2(Q,center,theta1,theta2,400);
 r1a = 10; r1b = 8/5*r1a;
 r2a = 12; r2b = 8/5*r2a;
-[a,Q] = ringFilter(Q,center,r1a,r1b,r2a,r2b);
+[a,rQ] = ringFilter(Q,center,r1a,r1b,r2a,r2b);
 
 a = abs(a).^2; m =mean(a);
-abQ = (abs(Q)).^2;
+abQ = (abs(rQ)).^2;
 mag = sum(sum(abQ));
 v = var(a);
 b = abs(m - a); count = 0;
@@ -46,9 +46,14 @@ for i = 1:length(a)
     end
 end
 
+xtraQ = boxFilter(Q,[-140 100],20,20);
+abxtraQ = (abs(xtraQ)).^2;
+mag = sum(sum(abxtraQ));
+count=count*(mag/20);
+
 % mag = var(a);
 % mag = mag/maxQ;
-% imagesc(log(abs(Q)+1));colorbar;
+%  imagesc(log(abs(xtraQ)+1));colorbar;
 if ischar(FILE) == 0
 %     figure(1);subplot(2,2,3); imagesc(log(abs(Q)+1)); title('after filter 1'); colorbar;
 end
