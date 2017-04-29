@@ -1,5 +1,6 @@
 function count = getFeature1(FILE)
 addpath(genpath(strcat(pwd,'/trainGIF')));
+addpath(genpath(strcat(pwd,'/AB')));
 % addpath(genpath(strcat(pwd,'/testData/Test2')));
 if ischar(FILE) == 1
     F = imread(FILE);  %read in image
@@ -19,7 +20,7 @@ scale1=[(linspace(0,640,640))]';
 %2d resolution matrix
 [X Y] = meshgrid(scale1,scale2);
 
-% imagesc(log(abs(Q)+1)); colorbar ;
+imagesc(log(abs(Q)+1)); colorbar ;
 % figure; surf(X,Y,log(abs(Q)+1))
 
 if ischar(FILE) == 0
@@ -49,7 +50,7 @@ end
 xtraQ = boxFilter(Q,[-140 100],20,20);
 abxtraQ = (abs(xtraQ)).^2;
 mag = sum(sum(abxtraQ));
-count=count*(mag/20);
+% count=count*(mag/20);
 
 % mag = var(a);
 % mag = mag/maxQ;

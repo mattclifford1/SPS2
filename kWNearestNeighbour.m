@@ -1,4 +1,4 @@
-function nearestNeighbour(feature1,feature2)
+function kWNearestNeighbour(feature1,feature2,kn)
 close all
 train = [feature1,feature2];
 trainS = [feature1(1:10),feature2(1:10)];
@@ -13,15 +13,27 @@ fail = [];
 A = []; B = []; C = [];
 for i = [0:100]
     for j = [0:100]
-        dists = pdist2(train,[i,j]);
-        [dist,ind] = min(dists);
-        if ind > 0 && ind < 11
+        ind = knnsearch(train,[i,j],'k',kn);
+        a = 0; b = 0; c = 0;
+        for k = 1:kn
+            if ind(k) > 0 && ind(k) < 11
+                a = a + (1/k);
+            end
+            if ind(k) > 10 && ind(k) < 21
+                b = b + (1/k);
+            end
+            if ind(k) > 20 && ind(k) < 31
+                c = c + (1/k);
+            end
+        end
+        [m,indx] = max([a,b,c]);
+        if indx == 1
             A = [A;[i,j]];
         end
-        if ind > 10 && ind < 21
+        if indx == 2
             B = [B;[i,j]];
         end
-        if ind > 20 && ind < 31
+        if indx == 3
             C = [C;[i,j]];
         end
     end
