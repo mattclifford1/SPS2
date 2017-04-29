@@ -34,10 +34,11 @@ feature2 = feature2/max2;
 hold off
 feature = 2;
 if feature == 2
-    scatter(feature1(1:10),feature2(1:10))
+    dot = 20; do1 = 5;
+    plot(feature1(1:10),feature2(1:10),'o','color',[0 0.5 0.5],'MarkerSize',do1)
     hold on
-    scatter(feature1(11:20),feature2(11:20))
-    scatter(feature1(21:30),feature2(21:30))
+    plot(feature1(11:20),feature2(11:20),'x','color',[0.5 0 0.5],'MarkerSize',do1)
+    plot(feature1(21:30),feature2(21:30),'d','color',[0.5 0.5 0],'MarkerSize',do1)
     xlabel('Feature 1'); ylabel('Feature 2');
 end
 if feature == 3

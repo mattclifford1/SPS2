@@ -37,32 +37,40 @@ testAB = [];
 for i = 1:length(pngFilesS)
     baseFileNameS = pngFilesS(i).name;
     fullFileNameS = fullfile(myFolder, baseFileNameS);
-    testImage = prepImage(fullFileNameS);
+    testImage = fullFileNameS;
     testAB = [testAB; (getFeature1(testImage)/max1),(getFeature2(testImage)/max2)]; 
     dists = pdist2(train,testAB(i,:));
     [dist,ind] = min(dists);
-    if ind > 0 && ind < 11
-        fprintf('Pass')
-        passS = passS + 1;
-    else
-        fprintf('Fail')
-        fail = [fail; testAB(i,:)];
+    if i == 1
+        fprintf('A :')
     end
+    if i == 2
+        fprintf('B :')
+    end
+    if ind > 0 && ind < 11
+        fprintf('S')
+    end
+    if ind > 10 && ind < 21
+        fprintf('T')
+    end
+    if ind > 20 && ind < 31
+        fprintf('V')
+    end
+    fprintf('\n')
 end
 
+
 %PLOTTING -----------------------------------------------------------------
-figure
-plot(feature1(1:10),feature2(1:10),'.','MarkerSize',10)
+figure; dot = 20; do1 = 5;
+plot(feature1(1:10),feature2(1:10),'o','color',[0 0.5 0.5],'MarkerSize',do1)
 hold on
-plot(feature1(11:20),feature2(11:20),'.','MarkerSize',10)
-plot(feature1(21:30),feature2(21:30),'.','MarkerSize',10)
+plot(feature1(11:20),feature2(11:20),'x','color',[0.5 0 0.5],'MarkerSize',do1)
+plot(feature1(21:30),feature2(21:30),'d','color',[0.5 0.5 0],'MarkerSize',do1)
 xlabel('Feature 1'); ylabel('Feature 2');
-% plot(testS(:,1),testS(:,2),'x','LineWidth',2)
-% plot(testT(:,1),testT(:,2),'x','LineWidth',2)
-% plot(testV(:,1),testV(:,2),'x','LineWidth',2)
-% plot(fail(:,1),fail(:,2),'o','MarkerSize',20)
-% legend('S','T','V','testS','testT','testV','failed')
-dot = 20; do1 = 5;
+plot(testAB(1,1),testAB(1,2),'ks','LineWidth',2)
+plot(testAB(2,1),testAB(2,2),'k*','LineWidth',2)
+plot(testAB(:,1),testAB(:,2),'ro','MarkerSize',20)
+legend('S','T','V','testA','testB')
 % figure
 plot(A(:,1),A(:,2),'.','color',[.8 1 1],'MarkerSize',dot);
 hold on
@@ -71,6 +79,9 @@ plot(C(:,1),C(:,2),'.','color',[1 1 .8],'MarkerSize',dot);
 plot(feature1(1:10),feature2(1:10),'o','color',[0 0.5 0.5],'MarkerSize',do1)
 plot(feature1(11:20),feature2(11:20),'x','color',[0.5 0 0.5],'MarkerSize',do1)
 plot(feature1(21:30),feature2(21:30),'d','color',[0.5 0.5 0],'MarkerSize',do1)
+plot(testAB(1,1),testAB(1,2),'ks','LineWidth',2)
+plot(testAB(2,1),testAB(2,2),'k*','LineWidth',2)
+plot(testAB(:,1),testAB(:,2),'ro','MarkerSize',20)
 
 
 

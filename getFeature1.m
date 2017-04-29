@@ -20,7 +20,7 @@ scale1=[(linspace(0,640,640))]';
 %2d resolution matrix
 [X Y] = meshgrid(scale1,scale2);
 
-imagesc(log(abs(Q)+1)); colorbar ;
+% imagesc(log(abs(Q)+1)); colorbar ;
 % figure; surf(X,Y,log(abs(Q)+1))
 
 if ischar(FILE) == 0
@@ -60,4 +60,8 @@ if ischar(FILE) == 0
 end
 % figure
 %  subplot(2,1,2);
-%imagesc(log(abs(Q)+1));colorbar;
+% imagesc(log(abs(rQ)+1));colorbar;
+% imagesc(log(abs(Q)+1)); 
+% axis equal
+% ylim([0,400]);xlim([0,640])
+% colorbar

@@ -20,8 +20,11 @@ abQ = (abs(Q)).^2;
 mag = sum(sum(abQ));
 
 % mag = mag/maxQ;
-% figure
-% imagesc(log(abs(Q)+1));
+% imagesc(log(abs(Q)+1)); 
+% axis equal
+% ylim([0,400]);xlim([0,640])
+% colorbar
+
 if ischar(FILE) == 0
 %     figure(1);subplot(2,2,4); imagesc(log(abs(Q)+1)); title('after filter 1'); colorbar;
 end
