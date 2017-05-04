@@ -1,14 +1,11 @@
 function rescaledG = prepImage(testImage)
-
-addpath(genpath(strcat(pwd,'/testData/Test2')));
+% convert RGB image into black and white image.
 
 I = imread(testImage);
-
 G = rgb2gray(I);
 rescaledG = imresize(G,[400 640]);
-% BW = imbinarize(G);
 dim = size(rescaledG);
-for i = 1:dim(1)
+for i = 1:dim(1)  %convert to binary
     for j = 1:dim(2)
         if rescaledG(i,j) > 240
             rescaledG(i,j) = 1;
@@ -17,4 +14,3 @@ for i = 1:dim(1)
         end
     end
 end
-% figure(1);subplot(2,2,1); imagesc(rescaledG);

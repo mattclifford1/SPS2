@@ -1,6 +1,4 @@
-% function mle(feature1,feature2)
 close all
-% addpath(genpath(strcat(pwd,'/testData')));
 
 train = [feature1,feature2];
 classS = [feature1(1:10),feature2(1:10)];
@@ -21,7 +19,7 @@ scale1=[(linspace(1,(max(feature1)+error),res))]';
 scale2=[(linspace(1,(max(feature2)+error),res))]';
 
 %2d resolution matrix
-[X Y] = meshgrid(scale1,scale2);
+[X,Y] = meshgrid(scale1,scale2);
 
 %calculating the probability across the area given
 probsS = mvnpdf([X(:) Y(:)],muS,covS);
@@ -63,9 +61,6 @@ for i = 1:length(bound1)
     end
 end
 
-
-passS = 0; passT = 0; passV = 0;
-fail = [];
 A = []; B = []; C = [];
 for i = 1:(max(scale1)-1)
     for j = 1:(max(scale1)-1)
@@ -81,12 +76,13 @@ for i = 1:(max(scale1)-1)
         end
     end
 end
-passS = 0; passT = 0; passV = 0;
-fail = [];
+
 % TEST DATA ---------------------------------------------------------------
 global max1; global max2;
-myFolder = strcat(pwd,'/testData/Test2');
+passS = 0; passT = 0; passV = 0;
+fail = [];
 
+myFolder = strcat(pwd,'/testData/Test2');
 fileGeneralS = fullfile(myFolder, 'S*.png');
 pngFilesS = dir(fileGeneralS);
 testS = []; 
@@ -104,7 +100,6 @@ for i = 1:length(pngFilesS)
         fprintf('Fail')
         fail = [fail; testS(i,:)];
     end
-    fprintf('%d S %d T %d V',probsS(1),probsS(2),probsS(3))
 end
 
 fileGeneralT = fullfile(myFolder, 'T*.png');
@@ -153,16 +148,10 @@ fprintf('\nV pass rate: %d out of %d\n',passV,totalV)
 
 %PLOTTING -----------------------------------------------------------------
 hold off
-sise=13;
+sise=13; dot = 20; do1 = 5;
 graphtype = 2;
 %mle likelihood, 2d contour of class, with mle decision boundaries
 if graphtype == 2
-    
-    dot = 20; do1 = 5;
-%     plot(classS(:,1),classS(:,2),'k.','MarkerSize',sise);
-%     hold on
-%     plot(classT(:,1),classT(:,2),'r.','MarkerSize',sise);
-%     plot(classV(:,1),classV(:,2),'b.','MarkerSize',sise);
     plot(feature1(1:10),feature2(1:10),'o','color',[0 0.5 0.5],'MarkerSize',do1)
     hold on
     plot(feature1(11:20),feature2(11:20),'x','color',[0.5 0 0.5],'MarkerSize',do1)
@@ -180,7 +169,6 @@ if graphtype == 2
     if isempty(fail) == 0
         plot(fail(:,1),fail(:,2),'o','MarkerSize',20)
     end
-%     legend('S','T','V','Means')
     legend('Train S','Train T','Train V','Means','Test S','Test T','Test V','fail')
     plot(A(:,1),A(:,2),'.','color',[.8 1 1],'MarkerSize',dot);
     hold on
@@ -209,10 +197,9 @@ if graphtype == 2
     if isempty(fail) == 0
         plot(fail(:,1),fail(:,2),'o','MarkerSize',20)
     end
-
-    %imagesc(BOUND)
     xlabel('Feature 1');ylabel('Feature 2');
 end
+
 %mle likelihood, 3d contour of class, with mle decision boundaries
 if graphtype == 3
     surf(X,Y,PROBSS)

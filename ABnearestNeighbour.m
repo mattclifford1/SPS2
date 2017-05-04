@@ -1,15 +1,6 @@
 function ABnearestNeighbour(feature1,feature2)
 close all
 train = [feature1,feature2];
-trainS = [feature1(1:10),feature2(1:10)];
-trainT = [feature1(11:20),feature2(11:20)];
-trainV = [feature1(21:30),feature2(21:30)];
-
-% addpath(genpath(strcat(pwd,'/testData')));
-
-passS = 0; passT = 0; passV = 0;
-fail = [];
-
 A = []; B = []; C = [];
 for i = [0:100]
     for j = [0:100]
@@ -27,7 +18,7 @@ for i = [0:100]
     end
 end
 
-% % TEST DATA ---------------------------------------------------------------
+% % A/B DATA ---------------------------------------------------------------
 global max1; global max2;
 myFolder = strcat(pwd,'/AB');
 
