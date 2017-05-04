@@ -61,6 +61,7 @@ end
 % figure
 %  subplot(2,1,2);
 % imagesc(log(abs(rQ)+1));colorbar;
+
 % imagesc(log(abs(Q)+1)); 
 % axis equal
 % ylim([0,400]);xlim([0,640])

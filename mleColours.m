@@ -17,10 +17,9 @@ Cen = [muS; muT; muV];
 %found, meshgrid used to get good/even plotting resolution
 error = 25;
 res=1000;
-scale1=[(linspace((min(feature1)),(max(feature1)+error),res))]'; 
-scale2=[(linspace((min(feature2)),(max(feature2)+error),res))]';
-scale1=[linspace(0,101,res)]'; 
-scale2=[linspace(0,101,res)]';
+scale1=[(linspace(1,(max(feature1)+error),res))]'; 
+scale2=[(linspace(1,(max(feature2)+error),res))]';
+
 %2d resolution matrix
 [X Y] = meshgrid(scale1,scale2);
 
@@ -68,8 +67,8 @@ end
 passS = 0; passT = 0; passV = 0;
 fail = [];
 A = []; B = []; C = [];
-for i = [0:100]
-    for j = [0:100]
+for i = 1:(max(scale1)-1)
+    for j = 1:(max(scale1)-1)
         [probsT,group] = highestProb([i,j],PROBSS,PROBST,PROBSV,X,Y);
         if group == 1
             A = [A;[i,j]];
@@ -82,6 +81,75 @@ for i = [0:100]
         end
     end
 end
+passS = 0; passT = 0; passV = 0;
+fail = [];
+% TEST DATA ---------------------------------------------------------------
+global max1; global max2;
+myFolder = strcat(pwd,'/testData/Test2');
+
+fileGeneralS = fullfile(myFolder, 'S*.png');
+pngFilesS = dir(fileGeneralS);
+testS = []; 
+for i = 1:length(pngFilesS)
+    fprintf('\nS%d: ',i)
+    baseFileNameS = pngFilesS(i).name;
+    fullFileNameS = fullfile(myFolder, baseFileNameS);
+    testImage = prepImage(fullFileNameS);
+    testS = [testS; (getFeature1(testImage)/max1),(getFeature2(testImage)/max2)]; 
+    [probsS,groupS(i)] = highestProb(testS(i,:),PROBSS,PROBST,PROBSV,X,Y);
+    if groupS(i) == 1
+        fprintf('Pass')
+        passS = passS + 1;
+    else
+        fprintf('Fail')
+        fail = [fail; testS(i,:)];
+    end
+    fprintf('%d S %d T %d V',probsS(1),probsS(2),probsS(3))
+end
+
+fileGeneralT = fullfile(myFolder, 'T*.png');
+pngFilesT = dir(fileGeneralT);
+testT = [];
+for i = 1:length(pngFilesT)
+    fprintf('\nT%d: ',i)
+    baseFileNameT = pngFilesT(i).name;
+    fullFileNameT = fullfile(myFolder, baseFileNameT);
+    testImage = prepImage(fullFileNameT);
+    testT = [testT; (getFeature1(testImage)/max1),(getFeature2(testImage)/max2)];
+    [probsT,groupT(i)] = highestProb(testT(i,:),PROBSS,PROBST,PROBSV,X,Y);
+    if groupT(i) == 2
+        fprintf('Pass')
+        passT = passT + 1;
+    else
+        fprintf('Fail')
+        fail = [fail; testT(i,:)];
+    end
+end
+
+fileGeneralV = fullfile(myFolder, 'V*.png');
+pngFilesV = dir(fileGeneralV);
+testV = [];
+for i = 1:length(pngFilesV)
+    fprintf('\nV%d: ',i)
+    baseFileNameV = pngFilesV(i).name;
+    fullFileNameV = fullfile(myFolder, baseFileNameV);
+    testImage = prepImage(fullFileNameV);
+    testV = [testV; (getFeature1(testImage)/max1),(getFeature2(testImage)/max2)];
+    [probsV,groupV(i)] = highestProb(testV(i,:),PROBSS,PROBST,PROBSV,X,Y);
+    if groupV(i) == 3
+        fprintf('Pass')
+        passV = passV + 1;
+    else
+        fprintf('Fail')
+        fail = [fail; testV(i,:)];
+    end
+end
+
+totalS = length(testS); totalT = length(testT); totalV = length(testV);
+
+fprintf('\nS pass rate: %d out of %d\n',passS,totalS)
+fprintf('\nT pass rate: %d out of %d\n',passT,totalT)
+fprintf('\nV pass rate: %d out of %d\n',passV,totalV)
 
 %PLOTTING -----------------------------------------------------------------
 hold off
@@ -100,20 +168,20 @@ if graphtype == 2
     plot(feature1(11:20),feature2(11:20),'x','color',[0.5 0 0.5],'MarkerSize',do1)
     plot(feature1(21:30),feature2(21:30),'d','color',[0.5 0.5 0],'MarkerSize',do1)
     plot(Cen(:,1),Cen(:,2),'kx','MarkerSize',10,'LineWidth',2)
-    %     if isempty(testS) == 0
-    %         scatter(testS(:,1),testS(:,2),'k*');
-    %     end
-    %     if isempty(testT) == 0
-    %         scatter(testT(:,1),testT(:,2),'r*');
-%     end
-%     if isempty(testV) == 0
-%         scatter(testV(:,1),testV(:,2),'b*');
-%     end
-%     if isempty(fail) == 0
-%         plot(fail(:,1),fail(:,2),'o','MarkerSize',20)
-%     end
-    legend('S','T','V','Means')
-%     legend('S','T','V','Means','s','t','v','fail')
+    if isempty(testS) == 0
+        scatter(testS(:,1),testS(:,2),'k*');
+    end
+    if isempty(testT) == 0
+        scatter(testT(:,1),testT(:,2),'r*');
+    end
+    if isempty(testV) == 0
+        scatter(testV(:,1),testV(:,2),'b*');
+    end
+    if isempty(fail) == 0
+        plot(fail(:,1),fail(:,2),'o','MarkerSize',20)
+    end
+%     legend('S','T','V','Means')
+    legend('Train S','Train T','Train V','Means','Test S','Test T','Test V','fail')
     plot(A(:,1),A(:,2),'.','color',[.8 1 1],'MarkerSize',dot);
     hold on
     plot(B(:,1),B(:,2),'.','color',[1 .8 1],'MarkerSize',dot);
@@ -129,6 +197,18 @@ if graphtype == 2
     plot(feature1(11:20),feature2(11:20),'x','color',[0.5 0 0.5],'MarkerSize',do1)
     plot(feature1(21:30),feature2(21:30),'d','color',[0.5 0.5 0],'MarkerSize',do1)
     plot(Cen(:,1),Cen(:,2),'kx','MarkerSize',10,'LineWidth',2)
+    if isempty(testS) == 0
+        scatter(testS(:,1),testS(:,2),'k*');
+    end
+    if isempty(testT) == 0
+        scatter(testT(:,1),testT(:,2),'r*');
+    end
+    if isempty(testV) == 0
+        scatter(testV(:,1),testV(:,2),'b*');
+    end
+    if isempty(fail) == 0
+        plot(fail(:,1),fail(:,2),'o','MarkerSize',20)
+    end
 
     %imagesc(BOUND)
     xlabel('Feature 1');ylabel('Feature 2');
