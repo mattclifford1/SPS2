@@ -54,7 +54,7 @@ for kn = [1,3,5,10]
         fullFileNameS = fullfile(myFolder, baseFileNameS);
         testImage = prepImage(fullFileNameS);
         testS = [testS; (getFeature1(testImage)/max1),(getFeature2(testImage)/max2)];
-        ind = knnsearch(train,testS(i,:),'k',kn);
+        ind = knnsearch(train,[i,j],'k',kn);
         a = 0; b = 0; c = 0;
             for k = 1:kn
                 if ind(k) > 0 && ind(k) < 11
@@ -86,27 +86,15 @@ for kn = [1,3,5,10]
         fullFileNameT = fullfile(myFolder, baseFileNameT);
         testImage = prepImage(fullFileNameT);
         testT = [testT; (getFeature1(testImage)/max1),(getFeature2(testImage)/max2)];
-        ind = knnsearch(train,testT(i,:),'k',kn);
-        a = 0; b = 0; c = 0;
-            for k = 1:kn
-                if ind(k) > 0 && ind(k) < 11
-                    a = a +1;
-                end
-                if ind(k) > 10 && ind(k) < 21
-                    b = b + 1;
-                end
-                if ind(k) > 20 && ind(k) < 31
-                    c = c + 1;
-                end
-            end
-            [m,indx] = max([a,b,c]);
-            if indx == 2
-                fprintf('Pass')
-                passT = passT + 1;
-            else
-                fprintf('Fail')
-                fail = [fail; testT(i,:)];
-            end
+        dists = pdist2(train,testT(i,:));
+        [dist,ind] = min(dists);
+        if ind > 10 && ind < 21
+            fprintf('Pass')
+            passT = passT + 1;
+        else
+            fprintf('Fail')
+            fail = [fail; testT(i,:)];
+        end
     end
     
     fileGeneralV = fullfile(myFolder, 'V*.png');
@@ -118,27 +106,15 @@ for kn = [1,3,5,10]
         fullFileNameV = fullfile(myFolder, baseFileNameV);
         testImage = prepImage(fullFileNameV);
         testV = [testV; (getFeature1(testImage)/max1),(getFeature2(testImage)/max2)];
-        ind = knnsearch(train,testV(i,:),'k',kn);
-        a = 0; b = 0; c = 0;
-            for k = 1:kn
-                if ind(k) > 0 && ind(k) < 11
-                    a = a +1;
-                end
-                if ind(k) > 10 && ind(k) < 21
-                    b = b + 1;
-                end
-                if ind(k) > 20 && ind(k) < 31
-                    c = c + 1;
-                end
-            end
-            [m,indx] = max([a,b,c]);
-            if indx == 3
-                fprintf('Pass')
-                passV = passV + 1;
-            else
-                fprintf('Fail')
-                fail = [fail; testV(i,:)];
-            end
+        dists = pdist2(train,testV(i,:));
+        [dist,ind] = min(dists);
+        if ind > 20 && ind < 31
+            fprintf('Pass')
+            passV = passV + 1;
+        else
+            fprintf('Fail')
+            fail = [fail; testV(i,:)];
+        end
     end
     totalS = length(testS); totalT = length(testT); totalV = length(testV);
     
