@@ -100,18 +100,17 @@ fprintf('\nT pass rate: %d out of %d\n',passT,totalT)
 fprintf('\nV pass rate: %d out of %d\n',passV,totalV)
 %PLOTTING -----------------------------------------------------------------
 figure
-plot(feature1(1:10),feature2(1:10),'.','MarkerSize',10)
+dot = 20; do1 = 5;
+plot(feature1(1:10),feature2(1:10),'o','color',[0 0.5 0.5],'MarkerSize',do1)
 hold on
-plot(feature1(11:20),feature2(11:20),'.','MarkerSize',10)
-plot(feature1(21:30),feature2(21:30),'.','MarkerSize',10)
+plot(feature1(11:20),feature2(11:20),'x','color',[0.5 0 0.5],'MarkerSize',do1)
+plot(feature1(21:30),feature2(21:30),'d','color',[0.5 0.5 0],'MarkerSize',do1)
 xlabel('Feature 1'); ylabel('Feature 2');
 plot(testS(:,1),testS(:,2),'x','LineWidth',2)
 plot(testT(:,1),testT(:,2),'x','LineWidth',2)
 plot(testV(:,1),testV(:,2),'x','LineWidth',2)
 plot(fail(:,1),fail(:,2),'o','MarkerSize',20)
 legend('S','T','V','testS','testT','testV','failed')
-dot = 20; do1 = 5;
-% figure
 plot(A(:,1),A(:,2),'.','color',[.8 1 1],'MarkerSize',dot);
 hold on
 plot(B(:,1),B(:,2),'.','color',[1 .8 1],'MarkerSize',dot);
