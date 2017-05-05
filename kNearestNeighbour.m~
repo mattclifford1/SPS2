@@ -129,6 +129,66 @@ for i = 1:length(pngFilesV)
         fail = [fail; testV(i,:)];
     end
 end
+myFolder = strcat(pwd,'/testData/Test2');
+fileGeneralS = fullfile(myFolder, 'S*.png');
+pngFilesS = dir(fileGeneralS);
+testS = [];
+for i = 1:length(pngFilesS)
+    fprintf('\nS%d: ',i)
+    baseFileNameS = pngFilesS(i).name;
+    fullFileNameS = fullfile(myFolder, baseFileNameS);
+    testImage = prepImage(fullFileNameS);
+    testS = [testS; (getFeature1(testImage)/max1),(getFeature2(testImage)/max2)];
+    dists = pdist2(train,testS(i,:));
+    [dist,ind] = min(dists);
+    if ind > 0 && ind < 11
+        fprintf('Pass')
+        passS = passS + 1;
+    else
+        fprintf('Fail')
+        fail = [fail; testS(i,:)];
+    end
+end
+
+fileGeneralT = fullfile(myFolder, 'T*.png');
+pngFilesT = dir(fileGeneralT);
+testT = [];
+for i = 1:length(pngFilesT)
+    fprintf('\nT%d: ',i)
+    baseFileNameT = pngFilesT(i).name;
+    fullFileNameT = fullfile(myFolder, baseFileNameT);
+    testImage = prepImage(fullFileNameT);
+    testT = [testT; (getFeature1(testImage)/max1),(getFeature2(testImage)/max2)];
+    dists = pdist2(train,testT(i,:));
+    [dist,ind] = min(dists);
+    if ind > 10 && ind < 21
+        fprintf('Pass')
+        passT = passT + 1;
+    else
+        fprintf('Fail')
+        fail = [fail; testT(i,:)];
+    end
+end
+
+fileGeneralV = fullfile(myFolder, 'V*.png');
+pngFilesV = dir(fileGeneralV);
+testV = [];
+for i = 1:length(pngFilesV)
+    fprintf('\nV%d: ',i)
+    baseFileNameV = pngFilesV(i).name;
+    fullFileNameV = fullfile(myFolder, baseFileNameV);
+    testImage = prepImage(fullFileNameV);
+    testV = [testV; (getFeature1(testImage)/max1),(getFeature2(testImage)/max2)];
+    dists = pdist2(train,testV(i,:));
+    [dist,ind] = min(dists);
+    if ind > 20 && ind < 31
+        fprintf('Pass')
+        passV = passV + 1;
+    else
+        fprintf('Fail')
+        fail = [fail; testV(i,:)];
+    end
+end
 totalS = length(testS); totalT = length(testT); totalV = length(testV);
 
 fprintf('\nS pass rate: %d out of %d\n',passS,totalS)
